@@ -96,11 +96,7 @@ class MediaPlayer extends React.Component {
       // hh:mm:ss:ff - mm:ss - m:ss - ss - seconds number or string and hh:mm:ss
       const newCurrentTimeInSeconds = timecodeToSeconds(newCurrentTime);
       const videoRef = this.props.videoRef.current;
-
-      if (videoRef.readyState === 4) {
-        videoRef.currentTime = newCurrentTimeInSeconds;
-        this.playMedia();
-      }
+      videoRef.seekTo(newCurrentTimeInSeconds,'seconds');
     }
   };
 
@@ -239,7 +235,7 @@ class MediaPlayer extends React.Component {
   // TEMP: keeping this in for now. Might be replaced by state
   // The pauseWhileTyping logic (in TimedTextEditor) currently uses this
   isPlaying = () => {
-    return !this.props.videoRef.current.paused;
+    return this.props.videoRef.current.playing;
   };
 
   pauseMedia = () => {

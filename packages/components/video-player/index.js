@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './index.module.css';
+import ReactPlayer from 'react-player'
 
 class VideoPlayer extends React.Component {
 
@@ -28,14 +29,13 @@ class VideoPlayer extends React.Component {
     const isDisplayed = this.props.previewIsDisplayed ? 'inline' : 'none';
 
     return (
-      <video
+      <ReactPlayer url={ this.props.mediaUrl }
         id="video"
         playsInline
-        src={ this.props.mediaUrl }
-        onTimeUpdate={ this.props.onTimeUpdate }
+        onProgress={ this.props.onTimeUpdate }
         data-testid="media-player-id"
         onClick={ this.handlePlayMedia }
-        onLoadedData={ this.props.onLoadedDataGetDuration }
+        onDuration={ this.props.onLoadedDataGetDuration }
         ref={ this.props.videoRef }
         className={ styles.videoEl }
         preload="auto"

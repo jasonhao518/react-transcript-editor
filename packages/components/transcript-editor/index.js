@@ -123,7 +123,7 @@ class TranscriptEditor extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleTimeUpdate = e => {
-    const currentTime = e.target.currentTime;
+    const currentTime = e.playedSeconds;
     this.setState({
       currentTime
     });
@@ -326,7 +326,7 @@ class TranscriptEditor extends React.Component {
   };
 
   onLoadedDataGetDuration = e => {
-    const currentDuration = e.target.duration;
+    const currentDuration = e;
     const currentDurationWithOffset =
       currentDuration + this.state.timecodeOffset;
     const durationInSeconds = secondsToTimecode(currentDurationWithOffset);

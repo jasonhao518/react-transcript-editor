@@ -8,7 +8,7 @@
 .main {
   margin-top: 1em;
   margin-bottom: 1em;
-  box-shadow: 0 0 10px #ccc; 
+  box-shadow: 0 0 10px #ccc;
 }
 
 .mainWithAudiio{
@@ -20,7 +20,7 @@
 video{
   margin-top: 1em;
   display: block;
-  box-shadow: 0 0 10px #ccc; 
+  box-shadow: 0 0 10px #ccc;
 }
 
 .help {
@@ -74,6 +74,7 @@ video{
 @media (min-width: 1020px) {
   .aside {
     margin-left: auto;
+    width: 512px;
   }
   .mainWithAudiio{
     margin-right: 20%;
@@ -98,7 +99,7 @@ video{
 /* Desktop size */
 @media  (min-width: 769px) and (max-width: 1020px){
 
-  
+
   .grid {
     margin-top: 1em;
     margin-left: 1em;
