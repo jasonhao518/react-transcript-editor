@@ -51,7 +51,7 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: isDevelopment }
+            options: { }
           }
         ]
       },
@@ -66,7 +66,7 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: isDevelopment }
+            options: { }
           }
         ]
       },
