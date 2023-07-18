@@ -14,7 +14,7 @@ import {
 
 import DEMO_TRANSCRIPT from "./sample-data/KateDarling-bbcKaldiTranscriptWithSpeakerSegments.json";
 const DEMO_MEDIA_URL =
-  "https://download.ted.com/talks/KateDarling_2018S-950k.mp4";
+  "https://www.youtube.com/watch?v=hvMe62TA0nI";
 const DEMO_TITLE =
   "TED Talk | Kate Darling - Why we have an emotional connection to robots";
 
@@ -59,7 +59,7 @@ class App extends React.Component {
         sttType: "bbckaldi"
       });
     }
-   
+
   };
 
   // https://stackoverflow.com/questions/8885701/play-local-hard-drive-video-file-with-html5-video-tag
@@ -183,7 +183,7 @@ class App extends React.Component {
     console.log("handleAutoSaveChanges", newAutoSaveData);
     const { data, ext } = newAutoSaveData;
     this.setState({ autoSaveData: data, autoSaveExtension: ext });
-    // Saving to local storage 
+    // Saving to local storage
     localSave(this.state.mediaUrl, this.state.fileName, data);
   };
   render() {
@@ -197,117 +197,12 @@ class App extends React.Component {
         >
           <FontAwesomeIcon icon={faGithub} />
         </a>
-        <div className={style.demoNav}>
-          <section className={style.demoNavItem}>
-            <label className={style.sectionLabel}>Start</label>
-            <button
-              className={style.demoButton}
-              onClick={() => this.loadDemo()}
-            >
-              Load Demo
-            </button>
-          </section>
-
-          <section className={style.demoNavItem}>
-            <label className={style.sectionLabel}>Load Media</label>
-            <button onClick={() => this.handleLoadMediaUrl()}> From URL</button>
-            <input
-              type={"file"}
-              id={"mediaFile"}
-              onChange={e => this.handleLoadMedia(e.target.files)}
-            />
-            <label htmlFor="mediaFile">From Computer</label>
-            {this.state.fileName !== "" ? (
-              <label className={style.fileNameLabel}>
-                {this.state.fileName}
-              </label>
-            ) : null}
-          </section>
-
-          <section className={style.demoNavItem}>
-            <label className={style.sectionLabel}>Load Transcript</label>
-            <SttTypeSelect
-              className={style.dropdown}
-              name={"sttType"}
-              value={this.state.sttType}
-              handleChange={this.handleSttTypeChange}
-            />
-
-            <input
-              type={"file"}
-              id={"transcriptFile"}
-              onChange={e => this.handleLoadTranscriptJson(e.target.files)}
-            />
-            <label htmlFor="transcriptFile">From Computer</label>
-            {this.state.transcriptData !== null ? (
-              <label className={style.fileNameLabel}>Transcript loaded.</label>
-            ) : null}
-          </section>
-
-          <section className={style.demoNavItem}>
-            <label className={style.sectionLabel}>Export Transcript</label>
-            <ExportFormatSelect
-              className={style.dropdown}
-              name={"exportFormat"}
-              value={this.state.exportFormat}
-              handleChange={this.handleExportFormatChange}
-            />
-            <button onClick={() => this.exportTranscript()}>Export File</button>
-          </section>
-
-          <section className={style.demoNavItem}>
-            <label className={style.sectionLabel}>
-              Transcript Title
-              <span className={style.titleLabel}>(Optional)</span>
-            </label>
-            <input
-              type="text"
-              value={this.state.title}
-              onChange={e => this.handleChangeTranscriptTitle(e.target.value)}
-            />
-          </section>
-
-          <section className={style.demoNavItem}>
-            <label className={style.sectionLabel}>Options</label>
-
-            <div className={style.checkbox}>
-              <label
-                className={style.editableLabel}
-                htmlFor={"textIsEditableCheckbox"}
-              >
-                Text Is Editable
-              </label>
-              <input
-                id={"textIsEditableCheckbox"}
-                type="checkbox"
-                checked={this.state.isTextEditable}
-                onChange={this.handleIsTextEditable}
-              />
-            </div>
-
-            <div className={style.checkbox}>
-              <label
-                className={style.editableLabel}
-                htmlFor={"spellCheckCheckbox"}
-              >
-                Spell Check
-              </label>
-              <input
-                id={"spellCheckCheckbox"}
-                type="checkbox"
-                checked={this.state.spellCheck}
-                onChange={this.handleSpellCheck}
-              />
-            </div>
-
-            <button
-              className={style.warningButton}
-              onClick={() => this.clearLocalStorage()}
-            >
-              Clear Local Storage
-            </button>
-          </section>
-        </div>
+        <button
+          className={style.demoButton}
+          onClick={() => this.loadDemo()}
+        >
+          Load Demo
+        </button>
 
         <TranscriptEditor
           transcriptData={this.state.transcriptData}
@@ -324,32 +219,7 @@ class App extends React.Component {
           mediaType={ 'video' }
         />
 
-        <section style={{ height: "250px", width: "50%", float: "left" }}>
-          <h3>Components Analytics</h3>
-          <textarea
-            style={{ height: "100%", width: "100%" }}
-            value={JSON.stringify(this.state.analyticsEvents, null, 2)}
-            disabled
-          />
-        </section>
 
-        <section style={{ height: "250px", width: "50%", float: "right" }}>
-          <h3>
-            Auto Save data:{" "}
-            <code>
-              {this.state.autoSaveContentType}| {this.state.autoSaveExtension}
-            </code>
-          </h3>
-          <textarea
-            style={{ height: "100%", width: "100%" }}
-            value={
-              this.state.autoSaveExtension === "json"
-                ? JSON.stringify(this.state.autoSaveData, null, 2)
-                : this.state.autoSaveData
-            }
-            disabled
-          />
-        </section>
       </div>
     );
   }

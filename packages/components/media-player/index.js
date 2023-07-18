@@ -166,7 +166,7 @@ class MediaPlayer extends React.Component {
     // get video duration
     const videoElem = this.props.videoRef.current;
     const tmpDesiredCurrentTime =
-        videoElem.currentTime - this.state.rollBackValueInSeconds;
+        videoElem.getCurrentTime() - this.state.rollBackValueInSeconds;
       // > 0 < duration of video
     this.setCurrentTime(tmpDesiredCurrentTime);
   };

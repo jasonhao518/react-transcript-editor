@@ -362,6 +362,7 @@ class TranscriptEditor extends React.Component {
   render() {
     const videoPlayer = (
       <VideoPlayer
+        isPlaying={this.handleIsPlaying}
         mediaUrl={this.props.mediaUrl}
         onTimeUpdate={this.handleTimeUpdate}
         videoRef={this.videoRef}

@@ -20,39 +20,11 @@ class Header extends React.Component {
     const props = this.props;
 
     return (<>
-      <header className={ style.header }>
-        {props.showSettings ? props.settings : null}
-        {props.showShortcuts ? props.shortcuts : null}
-        {props.showExportOptions ? props.exportOptions : null}
-        {props.tooltip}
-      </header>
       <nav className={ style.nav }>
         {props.mediaUrl === null ? null : props.mediaControls}
       </nav>
 
-      <div className={ style.settingsContainer }>
-        <button
-          className={ style.settingsButton }
-          title="Settings"
-          onClick={ props.handleSettingsToggle }
-        >
-          <FontAwesomeIcon icon={ faCog } />
-        </button>
-        <button
-          className={ `${ style.settingsButton } ${ style.keyboardShortcutsButon }` }
-          title="view shortcuts"
-          onClick={ props.handleShortcutsToggle }
-        >
-          <FontAwesomeIcon icon={ faKeyboard } />
-        </button>
-        <button
-          className={ `${ style.settingsButton }` }
-          title="Export"
-          onClick={ props.handleExportToggle }
-        >
-          <FontAwesomeIcon icon={ faShare } />
-        </button>
-      </div>
+
     </>);
   };
 }
