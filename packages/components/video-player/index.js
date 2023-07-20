@@ -31,8 +31,9 @@ class VideoPlayer extends React.Component {
     return (
       <ReactPlayer url={ this.props.mediaUrl }
         id="video"
-        controls="true"
+        controls={true}
         playsInline
+        progressInterval={100}
         playing={this.props.isPlaying}
         onProgress={ this.props.onTimeUpdate }
         data-testid="media-player-id"

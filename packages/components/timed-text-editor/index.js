@@ -193,7 +193,10 @@ class TimedTextEditor extends React.Component {
     while (!element.hasAttribute("data-start") && element.parentElement) {
       element = element.parentElement;
     }
-
+    var msg = new SpeechSynthesisUtterance();
+    msg.lang = "sv-SE";
+    msg.text = element.textContent;
+    window.speechSynthesis.speak(msg);
     if (element.hasAttribute("data-start")) {
       const t = parseFloat(element.getAttribute("data-start"));
       this.props.onWordClick(t);
@@ -580,7 +583,7 @@ const getEntityStrategy = mutability => (
   contentBlock.findEntityRanges(character => {
     const entityKey = character.getEntity();
     if (entityKey === null) {
-      return false;
+      return true;
     }
 
     return contentState.getEntity(entityKey).getMutability() === mutability;

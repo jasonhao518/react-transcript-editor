@@ -12,9 +12,9 @@ import {
   localSave
 } from "./local-storage.js";
 
-import DEMO_TRANSCRIPT from "./sample-data/KateDarling-bbcKaldiTranscriptWithSpeakerSegments.json";
+import DEMO_TRANSCRIPT from "./sample-data/test1.json";
 const DEMO_MEDIA_URL =
-  "https://www.youtube.com/watch?v=hvMe62TA0nI";
+  "https://www.youtube.com/watch?v=3UMmD8bnnOg";
 const DEMO_TITLE =
   "TED Talk | Kate Darling - Why we have an emotional connection to robots";
 
@@ -29,7 +29,7 @@ class App extends React.Component {
       mediaUrl: null,
       isTextEditable: true,
       spellCheck: false,
-      sttType: "bbckaldi",
+      sttType: "whisper",
       analyticsEvents: [],
       title: "",
       fileName: "",
@@ -56,7 +56,7 @@ class App extends React.Component {
         transcriptData: DEMO_TRANSCRIPT,
         mediaUrl: DEMO_MEDIA_URL,
         title: DEMO_TITLE,
-        sttType: "bbckaldi"
+        sttType: "whisper"
       });
     }
 

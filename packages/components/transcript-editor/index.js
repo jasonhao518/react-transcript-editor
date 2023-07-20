@@ -48,7 +48,7 @@ class TranscriptEditor extends React.Component {
       rollBackValueInSeconds: 15,
       timecodeOffset: 0,
       showTimecodes: true,
-      showSpeakers: true,
+      showSpeakers: false,
       previewIsDisplayed: true,
       mediaDuration: "00:00:00:00",
       gridDisplay: null,
@@ -362,7 +362,7 @@ class TranscriptEditor extends React.Component {
   render() {
     const videoPlayer = (
       <VideoPlayer
-        isPlaying={this.handleIsPlaying}
+        isPlaying={this.isPlaying}
         mediaUrl={this.props.mediaUrl}
         onTimeUpdate={this.handleTimeUpdate}
         videoRef={this.videoRef}
