@@ -19,12 +19,62 @@ import exportAdapter from '../../export-adapters';
 import updateTimestamps from './UpdateTimestamps/index.js';
 import style from './index.module.css';
 
+/**
+ * Get current selected text
+ * @param  {Draft.ContentState}
+ * @param  {Draft.SelectionState}
+ * @param  {String}
+ * @return {String}
+ */
+function _getTextSelection(contentState, selection, blockDelimiter) {
+    blockDelimiter = blockDelimiter || '\n';
+    var startKey   = selection.getStartKey();
+    var endKey     = selection.getEndKey();
+    var blocks     = contentState.getBlockMap();
+
+    var lastWasEnd = false;
+    var selectedBlock = blocks
+        .skipUntil(function(block) {
+            return block.getKey() === startKey;
+        })
+        .takeUntil(function(block) {
+            var result = lastWasEnd;
+
+            if (block.getKey() === endKey) {
+                lastWasEnd = true;
+            }
+
+            return result;
+        });
+
+    return selectedBlock
+        .map(function(block) {
+            var key = block.getKey();
+            var text = block.getText();
+
+            var start = 0;
+            var end = text.length;
+
+            if (key === startKey) {
+                start = selection.getStartOffset();
+            }
+            if (key === endKey) {
+                end = selection.getEndOffset();
+            }
+
+            text = text.slice(start, end);
+            return text;
+        })
+        .join(blockDelimiter);
+}
+
 class TimedTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      content: ''
     };
   }
 
@@ -101,7 +151,7 @@ class TimedTextEditor extends React.Component {
     }
 
     if (this.props.isEditable) {
-      this.setState({ editorState });
+      this.setState({ editorState, content: _getTextSelection(editorState.getCurrentContent(),editorState.getSelection(),' ') });
     }
   };
 
@@ -197,6 +247,7 @@ class TimedTextEditor extends React.Component {
     msg.lang = "sv-SE";
     msg.text = element.textContent;
     window.speechSynthesis.speak(msg);
+    //this.setState({content:msg.text});
     if (element.hasAttribute("data-start")) {
       const t = parseFloat(element.getAttribute("data-start"));
       this.props.onWordClick(t);
@@ -568,7 +619,21 @@ class TimedTextEditor extends React.Component {
     );
 
     return (
-      <section>{this.props.transcriptData !== null ? editor : null}</section>
+      <>
+      <section>{this.props.transcriptData !== null ? editor : null}
+      <div style={{ position: "relative", bottom: "150px", height: "150px", width: "100%" }}>
+      <button>Translate</button>
+      <button>Bookmark</button>
+      <button>Words</button>
+        <textarea
+          style={{ height: "100%", width: "100%" }}
+          value={this.state.content}
+          disabled
+        />
+      </div>
+      </section>
+
+      </>
     );
   }
 }

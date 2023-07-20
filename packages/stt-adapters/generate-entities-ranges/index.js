@@ -19,7 +19,7 @@ const generateEntitiesRanges = (words, wordAttributeName) => {
       end: word.end,
       confidence: word.confidence,
       text: word[wordAttributeName],
-      offset: position,
+      offset: position + 1,
       length: word[wordAttributeName].length,
       key: Math.random()
         .toString(36)
