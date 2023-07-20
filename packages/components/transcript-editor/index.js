@@ -434,7 +434,9 @@ class TranscriptEditor extends React.Component {
     const timedTextEditor = (
       <TimedTextEditor
         fileName={this.props.fileName}
-        transcriptData={this.state.transcriptData}
+        userLang={this.state.userLang}
+        contentLang={this.props.contentLang}
+        transcriptData={this.props.transcriptData}
         timecodeOffset={this.state.timecodeOffset}
         onWordClick={this.handleWordClick}
         playMedia={this.handlePlayMedia}
@@ -504,6 +506,8 @@ class TranscriptEditor extends React.Component {
 TranscriptEditor.propTypes = {
   onClick: PropTypes.func,
   title: PropTypes.string,
+  userLang: PropTypes.string,
+  contentLang: PropTypes.string,
   mediaUrl: PropTypes.string,
   isEditable: PropTypes.bool,
   spellCheck: PropTypes.bool,

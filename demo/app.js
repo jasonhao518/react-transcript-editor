@@ -27,6 +27,8 @@ class App extends React.Component {
     this.state = {
       transcriptData: null,
       mediaUrl: null,
+      userLang: 'en',
+      contentLang: 'ja',
       isTextEditable: true,
       spellCheck: false,
       sttType: "whisper",
@@ -48,6 +50,7 @@ class App extends React.Component {
         transcriptData: transcriptDataFromLocalStorage,
         mediaUrl: DEMO_MEDIA_URL,
         title: DEMO_TITLE,
+        contentLang: DEMO_TRANSCRIPT.language,
         sttType: 'draftjs'
       });
     }
@@ -56,6 +59,7 @@ class App extends React.Component {
         transcriptData: DEMO_TRANSCRIPT,
         mediaUrl: DEMO_MEDIA_URL,
         title: DEMO_TITLE,
+        contentLang: DEMO_TRANSCRIPT.language,
         sttType: "whisper"
       });
     }
@@ -208,6 +212,8 @@ class App extends React.Component {
           transcriptData={this.state.transcriptData}
           fileName={this.state.fileName}
           mediaUrl={this.state.mediaUrl}
+          userLang={this.state.userLang}
+          contentLang={this.state.contentLang}
           isEditable={this.state.isTextEditable}
           spellCheck={this.state.spellCheck}
           sttJsonType={this.state.sttType}

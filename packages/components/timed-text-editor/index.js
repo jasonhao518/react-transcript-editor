@@ -74,7 +74,8 @@ class TimedTextEditor extends React.Component {
 
     this.state = {
       editorState: EditorState.createEmpty(),
-      content: ''
+      content: '',
+      translation: ''
     };
   }
 
@@ -151,7 +152,7 @@ class TimedTextEditor extends React.Component {
     }
 
     if (this.props.isEditable) {
-      this.setState({ editorState, content: _getTextSelection(editorState.getCurrentContent(),editorState.getSelection(),' ') });
+      this.setState({ editorState, content: _getTextSelection(editorState.getCurrentContent(),editorState.getSelection(),' '), translation: '' });
     }
   };
 
@@ -244,7 +245,8 @@ class TimedTextEditor extends React.Component {
       element = element.parentElement;
     }
     var msg = new SpeechSynthesisUtterance();
-    msg.lang = "sv-SE";
+    console.log("lang:"+this.props.contentLang);
+    msg.lang = this.props.contentLang;
     msg.text = element.textContent;
     window.speechSynthesis.speak(msg);
     //this.setState({content:msg.text});
@@ -527,6 +529,10 @@ class TimedTextEditor extends React.Component {
     return { entityKey, isEndOfParagraph };
   };
 
+  handleTranslation = () => {
+    this.setState({ translation: 'Привет, мир! Как дела?'});
+  }
+
   getCurrentWord = () => {
     const currentWord = {
       start: "NA",
@@ -621,13 +627,14 @@ class TimedTextEditor extends React.Component {
     return (
       <>
       <section>{this.props.transcriptData !== null ? editor : null}
-      <div style={{ position: "relative", bottom: "150px", height: "150px", width: "100%" }}>
-      <button>Translate</button>
+      <div style={{ position: "relative", bottom: "120px", height: "120px", width: "100%" }}>
+      <button onClick={this.handleTranslation}>Translate</button>
       <button>Bookmark</button>
       <button>Words</button>
+        <p>{this.state.content}</p>
         <textarea
           style={{ height: "100%", width: "100%" }}
-          value={this.state.content}
+          value={this.state.translation}
           disabled
         />
       </div>
@@ -667,6 +674,8 @@ const decorator = new CompositeDecorator([
 TimedTextEditor.propTypes = {
   transcriptData: PropTypes.object,
   mediaUrl: PropTypes.string,
+  userLang: PropTypes.string,
+  contentLang: PropTypes.string,
   isEditable: PropTypes.bool,
   spellCheck: PropTypes.bool,
   onWordClick: PropTypes.func,
